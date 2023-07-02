@@ -103,7 +103,7 @@ async function add(user) {
     const userToAdd = {
       username: user.username,
       password: user.password,
-      fullname: user.fullname,
+      email: user.email,
       imgUrl: user.imgUrl,
       LikedSongs: user.LikedSongs,
       score: 100,
