@@ -5,9 +5,9 @@ const ObjectId = require('mongodb').ObjectId
 async function query() {
   try {
     const collection = await dbService.getCollection('station')
-
+    console.log('collection', collection)
     var stations = await collection.find().toArray()
-
+    console.log('stations in service back', stations)
     return stations
   } catch (err) {
     logger.error('cannot find stations', err)
