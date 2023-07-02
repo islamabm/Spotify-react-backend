@@ -54,6 +54,7 @@ async function update(station) {
   try {
     const stationToSave = {
       name: station.name,
+      desc: station.desc,
       imgUrl: station.imgUrl,
     }
     const collection = await dbService.getCollection('station')
@@ -61,9 +62,10 @@ async function update(station) {
       { _id: new ObjectId(station._id) },
       { $set: stationToSave }
     )
+    console.log('station', station)
     return station
   } catch (err) {
-    logger.error(`cannot update station ${stationId}`, err)
+    logger.error(`cannot update station ${station._id}`, err)
     throw err
   }
 }
