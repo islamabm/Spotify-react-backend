@@ -4,7 +4,7 @@ const ObjectId = require('mongodb').ObjectId
 
 async function query() {
   try {
-    const collection = await dbService.getCollection('react_station')
+    const collection = await dbService.getCollection('playlist')
     console.log('collection', collection)
     var stations = await collection.find().toArray()
     console.log('stations in service back', stations)
@@ -17,7 +17,7 @@ async function query() {
 
 async function getById(stationId) {
   try {
-    const collection = await dbService.getCollection('react_station')
+    const collection = await dbService.getCollection('playlist')
 
     const station = collection.findOne({ _id: new ObjectId(stationId) })
 
@@ -30,7 +30,7 @@ async function getById(stationId) {
 
 async function remove(stationId) {
   try {
-    const collection = await dbService.getCollection('react_station')
+    const collection = await dbService.getCollection('playlist')
     await collection.deleteOne({ _id: new ObjectId(stationId) })
     return stationId
   } catch (err) {
@@ -41,7 +41,7 @@ async function remove(stationId) {
 
 async function add(station) {
   try {
-    const collection = await dbService.getCollection('react_station')
+    const collection = await dbService.getCollection('playlist')
     await collection.insertOne(station)
     return station
   } catch (err) {
@@ -57,7 +57,7 @@ async function update(station) {
       desc: station.desc,
       imgUrl: station.imgUrl,
     }
-    const collection = await dbService.getCollection('react_station')
+    const collection = await dbService.getCollection('playlist')
     await collection.updateOne(
       { _id: new ObjectId(station._id) },
       { $set: stationToSave }
@@ -72,7 +72,7 @@ async function update(station) {
 
 async function addStationSong(stationId, song) {
   try {
-    const collection = await dbService.getCollection('react_station')
+    const collection = await dbService.getCollection('playlist')
     const songWithId = { ...song, _id: new ObjectId() }
     await collection.updateOne(
       { _id: new ObjectId(stationId) },
@@ -87,7 +87,7 @@ async function addStationSong(stationId, song) {
 
 async function removeStationSong(stationId, songArtist, songTitle) {
   try {
-    const collection = await dbService.getCollection('react_station')
+    const collection = await dbService.getCollection('playlist')
     await collection.updateOne(
       { _id: new ObjectId(stationId) },
       { $pull: { songs: { artist: songArtist, title: songTitle } } }
