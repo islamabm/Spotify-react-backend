@@ -73,18 +73,18 @@ async function update(station) {
 async function addStationSong(stationId, song) {
   try {
     const collection = await dbService.getCollection('station')
+    const songWithId = { ...song, _id: new ObjectId() }
     await collection.updateOne(
       { _id: new ObjectId(stationId) },
-      { $push: { songs: song } }
+      { $push: { songs: songWithId } }
     )
-    return song
+    return songWithId
   } catch (err) {
-    logger.error(`cannot add station msg ${stationId}`, err)
+    logger.error(`cannot add station song ${stationId}`, err)
     throw err
   }
 }
 
-//Step 6
 async function removeStationSong(stationId, songArtist, songTitle) {
   try {
     const collection = await dbService.getCollection('station')

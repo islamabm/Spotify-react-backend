@@ -66,6 +66,7 @@ async function addStationSong(req, res) {
     const stationId = req.params.id
     const song = req.body.song
     const savedSong = await stationService.addStationSong(stationId, song)
+    console.log('savedSong', savedSong)
     res.json(savedSong)
   } catch (err) {
     logger.error('Failed to update station', err)
