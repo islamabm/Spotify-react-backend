@@ -57,6 +57,17 @@ async function updateUser(req, res) {
     res.status(500).send({ err: 'Failed to update user' })
   }
 }
+async function updateUserImg(req, res) {
+  try {
+    const user = req.body
+    console.log('user in the controlle back', user)
+    const savedUser = await userService.updateImg(user)
+    res.send(savedUser)
+  } catch (err) {
+    logger.error('Failed to update user', err)
+    res.status(500).send({ err: 'Failed to update user' })
+  }
+}
 
 module.exports = {
   getUser,
@@ -64,4 +75,5 @@ module.exports = {
   deleteUser,
   updateUser,
   getUserDetails,
+  updateUserImg,
 }

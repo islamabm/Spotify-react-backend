@@ -11,6 +11,7 @@ module.exports = {
   update,
   add,
   getUserDetails,
+  updateImg,
 }
 async function getUserDetails(userId) {
   const user = await dbService
@@ -86,6 +87,22 @@ async function update(user) {
       _id: new ObjectId(user._id),
       username: user.username,
       LikedSongs: user.LikedSongs,
+    }
+
+    const collection = await dbService.getCollection('user')
+    await collection.updateOne({ _id: userToSave._id }, { $set: userToSave })
+    return userToSave
+  } catch (err) {
+    logger.error(`cannot update user ${user._id}`, err)
+    throw err
+  }
+}
+async function updateImg(user) {
+  try {
+    const userToSave = {
+      _id: new ObjectId(user._id),
+      username: user.username,
+      imgUrl: user.imgUrl,
     }
 
     const collection = await dbService.getCollection('user')
