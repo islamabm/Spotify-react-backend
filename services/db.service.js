@@ -22,7 +22,7 @@ async function getCollection(collectionName) {
 }
 async function getRandomSongsFromMoodTag(mood, songLimit) {
   try {
-    const collection = await getCollection('station')
+    const collection = await getCollection('react_station')
     const playlists = await collection.find({}).toArray()
 
     const matchedPlaylists = await collection.find({ tags: mood }).toArray()
