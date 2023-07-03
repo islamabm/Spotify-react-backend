@@ -76,20 +76,19 @@ async function addStationSong(req, res) {
 
 //Step 5
 async function removeStationSong(req, res) {
-  const { loggedinUser } = req
   try {
     const stationId = req.params.id
-    const songArtist = req.params.songArtist
-    const songTitle = req.params.songTitle
+    const songId = req.params.songId
+    console.log('stationId in the controller', stationId)
+    console.log('songId in the controller', songId)
     const removedSongDetails = await stationService.removeStationSong(
       stationId,
-      songArtist,
-      songTitle
+      songId
     )
     res.send(removedSongDetails)
   } catch (err) {
-    logger.error('Failed to remove station msg', err)
-    res.status(500).send({ err: 'Failed to remove station msg' })
+    logger.error('Failed to remove song', err)
+    res.status(500).send({ err: 'Failed to remove song' })
   }
 }
 
