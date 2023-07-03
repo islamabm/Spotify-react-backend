@@ -83,8 +83,8 @@ async function update(user) {
   try {
     // peek only updatable properties
     const userToSave = {
-      _id: ObjectId(user._id), // needed for the returnd obj
-      fullname: user.fullname,
+      _id: new ObjectId(user._id),
+      username: user.username,
       LikedSongs: user.LikedSongs,
     }
 
