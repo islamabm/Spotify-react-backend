@@ -47,10 +47,10 @@ async function deleteUser(req, res) {
 
 async function updateUser(req, res) {
   try {
-    const { stationId, user } = req.body
-    console.log(stationId)
+    const user = req.body
+
     console.log(user)
-    const savedUser = await userService.update(stationId, user)
+    const savedUser = await userService.update(user)
     res.send(savedUser)
     console.log(savedUser)
   } catch (err) {
@@ -71,7 +71,7 @@ async function updateUserImg(req, res) {
 async function updateLatestStations(req, res) {
   try {
     const user = req.body
-    console.log('user from controller',user)
+    console.log('user from controller', user)
     const savedUser = await userService.updateLatestStations(user)
     console.log('savedUser', savedUser)
     res.send(savedUser)

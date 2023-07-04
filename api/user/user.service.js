@@ -88,23 +88,6 @@ async function update(user) {
       _id: new ObjectId(user._id),
       username: user.username,
       LikedSongs: user.LikedSongs,
-      latestStations: user.latestStations,
-    }
-
-    const collection = await dbService.getCollection('user')
-    await collection.updateOne({ _id: userToSave._id }, { $set: userToSave })
-    return userToSave
-  } catch (err) {
-    logger.error(`cannot update user ${user._id}`, err)
-    throw err
-  }
-}
-async function updateImg(user) {
-  try {
-    const userToSave = {
-      _id: new ObjectId(user._id),
-      username: user.username,
-      imgUrl: user.imgUrl,
     }
 
     const collection = await dbService.getCollection('user')
@@ -179,7 +162,7 @@ async function updateLatestStations(user) {
       { $set: { latestStations: user.latestStations } },
       { returnOriginal: false }
     )
-    console.log('updated user from back service',updatedUser)
+    console.log('updated user from back service', updatedUser)
     return updatedUser
   } catch (err) {
     throw err
