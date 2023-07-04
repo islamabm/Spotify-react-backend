@@ -70,15 +70,8 @@ async function updateUserImg(req, res) {
 }
 async function updateLatestStations(req, res) {
   try {
-    const updatedUser = req.body;
-    const { latestStations } = updatedUser;
-    const updatedLatestStations = [...latestStations];
-    if (updatedLatestStations.length > 6) {
-      updatedLatestStations.splice(0, updatedLatestStations.length - 6);
-    }
-    updatedUser.latestStations = updatedLatestStations;
-
-    const savedUser = await userService.updateLatestStations(updatedUser);
+    const user = req.body;
+    const savedUser = await userService.updateLatestStations(user);
     res.send(savedUser);
   } catch (err) {
     logger.error('Failed to update user', err);
