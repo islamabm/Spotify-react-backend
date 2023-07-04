@@ -2,15 +2,16 @@ const dbService = require('../../services/db.service')
 const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
 
-async function query(category) {
+async function query(filterBy) {
   try {
     const collection = await dbService.getCollection('playlist')
-
-    var stations = await collection.find().toArray()
-    if(category){
-      const filteredStations = stations.filter( station => station.tags[0] === category )
-      return filteredStations
+    let stations = []
+    if (filterBy === 'All') {
+      stations = await collection.find().toArray()
+    } else {
+      stations = await collection.find({ tags: filterBy }).toArray()
     }
+    console.log('stations in service back', stations)
     return stations
   } catch (err) {
     logger.error('cannot find stations', err)
