@@ -2,13 +2,13 @@ const dbService = require('../../services/db.service')
 const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
 
-async function query() {
+async function query(filterBy) {
   try {
-    const collection = await dbService.getCollection('react_station')
-    console.log('collection', collection)
+    const collection = await dbService.getCollection('playlist')
+
     var stations = await collection.find().toArray()
-    console.log('stations in service back', stations)
-    return stations
+    const filteredStations = stations.filter( station => station.tags === filterBy )
+    return filteredStations
   } catch (err) {
     logger.error('cannot find stations', err)
     throw err
@@ -17,7 +17,7 @@ async function query() {
 
 async function getById(stationId) {
   try {
-    const collection = await dbService.getCollection('react_station')
+    const collection = await dbService.getCollection('playlist')
 
     const station = collection.findOne({ _id: new ObjectId(stationId) })
 
@@ -30,7 +30,7 @@ async function getById(stationId) {
 
 async function remove(stationId) {
   try {
-    const collection = await dbService.getCollection('react_station')
+    const collection = await dbService.getCollection('playlist')
     await collection.deleteOne({ _id: new ObjectId(stationId) })
     return stationId
   } catch (err) {
@@ -41,7 +41,7 @@ async function remove(stationId) {
 
 async function add(station) {
   try {
-    const collection = await dbService.getCollection('react_station')
+    const collection = await dbService.getCollection('playlist')
     await collection.insertOne(station)
     return station
   } catch (err) {
@@ -57,12 +57,11 @@ async function update(station) {
       desc: station.desc,
       imgUrl: station.imgUrl,
     }
-    const collection = await dbService.getCollection('react_station')
+    const collection = await dbService.getCollection('playlist')
     await collection.updateOne(
       { _id: new ObjectId(station._id) },
       { $set: stationToSave }
     )
-    console.log('station', station)
     return station
   } catch (err) {
     logger.error(`cannot update station ${station._id}`, err)
@@ -72,27 +71,27 @@ async function update(station) {
 
 async function addStationSong(stationId, song) {
   try {
-    const collection = await dbService.getCollection('react_station')
-    const songWithId = { ...song, _id: new ObjectId() }
+    const collection = await dbService.getCollection('playlist')
+    // const songWithId = { ...song, _id: new ObjectId() }
     await collection.updateOne(
       { _id: new ObjectId(stationId) },
-      { $push: { songs: songWithId } }
+      { $push: { songs: song } }
     )
-    return songWithId
+    return song
   } catch (err) {
     logger.error(`cannot add station song ${stationId}`, err)
     throw err
   }
 }
 
-async function removeStationSong(stationId, songArtist, songTitle) {
+async function removeStationSong(stationId, songId) {
   try {
-    const collection = await dbService.getCollection('react_station')
-    await collection.updateOne(
+    const collection = await dbService.getCollection('playlist')
+    const station = await collection.updateOne(
       { _id: new ObjectId(stationId) },
-      { $pull: { songs: { artist: songArtist, title: songTitle } } }
+      { $pull: { songs: { _id: songId } } }
     )
-    return { artist: songArtist, title: songTitle }
+    return songId
   } catch (err) {
     logger.error(`cannot add station msg ${stationId}`, err)
     throw err

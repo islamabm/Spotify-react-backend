@@ -9,6 +9,7 @@ const {
   deleteUser,
   updateUser,
   getUserDetails,
+  updateUserImg,
 } = require('./user.controller')
 const router = express.Router()
 
@@ -18,6 +19,7 @@ const router = express.Router()
 router.get('/', getUsers)
 router.get('/:id', getUser)
 router.put('/:id', updateUser)
+router.put('/img/:id', updateUserImg)
 router.get('/details/:id', getUserDetails)
 
 // router.put('/:id',  requireAuth, updateUser)

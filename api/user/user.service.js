@@ -11,6 +11,7 @@ module.exports = {
   update,
   add,
   getUserDetails,
+  updateImg,
   updateLatestStations,
 };
 async function getUserDetails(userId) {
@@ -84,8 +85,8 @@ async function update(user) {
   try {
     // peek only updatable properties
     const userToSave = {
-      _id: ObjectId(user._id), // needed for the returnd obj
-      fullname: user.fullname,
+      _id: new ObjectId(user._id),
+      username: user.username,
       LikedSongs: user.LikedSongs,
       latestStations: user.latestStations,
     };
@@ -96,6 +97,38 @@ async function update(user) {
   } catch (err) {
     logger.error(`cannot update user ${user._id}`, err);
     throw err;
+  }
+}
+async function updateImg(user) {
+  try {
+    const userToSave = {
+      _id: new ObjectId(user._id),
+      username: user.username,
+      imgUrl: user.imgUrl,
+    }
+
+    const collection = await dbService.getCollection("user");
+    await collection.updateOne({ _id: userToSave._id }, { $set: userToSave });
+    return userToSave;
+  } catch (err) {
+    logger.error(`cannot update user ${user._id}`, err)
+    throw err
+  }
+}
+async function updateImg(user) {
+  try {
+    const userToSave = {
+      _id: new ObjectId(user._id),
+      username: user.username,
+      imgUrl: user.imgUrl,
+    }
+
+    const collection = await dbService.getCollection('user')
+    await collection.updateOne({ _id: userToSave._id }, { $set: userToSave })
+    return userToSave
+  } catch (err) {
+    logger.error(`cannot update user ${user._id}`, err)
+    throw err
   }
 }
 
