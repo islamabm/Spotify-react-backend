@@ -88,7 +88,6 @@ async function update(user) {
       _id: new ObjectId(user._id),
       username: user.username,
       LikedSongs: user.LikedSongs,
-      latestStations: user.latestStations,
     };
 
     const collection = await dbService.getCollection("user");
@@ -174,14 +173,16 @@ function _buildCriteria(filterBy) {
 
 async function updateLatestStations(user) {
   try {
-    const collection = await dbService.getCollection("user");
-    const updatedUser = await collection.findOneAndUpdate(
-      { _id: new ObjectId(user._id) },
-      { $set: { latestStations: user.latestStations } },
-      { returnOriginal: false }
-    );
-    return updatedUser;
+    const userToSave = {
+      _id: new ObjectId(user._id),
+      username: user.username,
+      latestStations: user.latestStations.length > 6 ? user.latestStations.splice(0,1) : user.latestStations
+    }
+    const collection = await dbService.getCollection('user')
+    await collection.updateOne({ _id: userToSave._id }, { $set: userToSave })
+    return userToSave
   } catch (err) {
-    throw err;
+    logger.error(`cannot update user ${user._id}`, err)
+    throw err
   }
 }

@@ -19,7 +19,7 @@ const router = express.Router()
 // router.use(requireAuth)
 
 router.get('/', log, getStations);
-router.get('/:category', log, getStations);
+// router.get('/:category', log, getStations);
 router.get('/:id', getStationById)
 router.post('/', addStation)
 router.put('/:id', updateStation)

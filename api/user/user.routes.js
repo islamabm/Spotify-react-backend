@@ -10,6 +10,7 @@ const {
   updateUser,
   getUserDetails,
   updateUserImg,
+  updateLatestStations
 } = require('./user.controller')
 const router = express.Router()
 
@@ -19,6 +20,7 @@ const router = express.Router()
 router.get('/', getUsers)
 router.get('/:id', getUser)
 router.put('/:id', updateUser)
+router.put('/latest/:id', updateLatestStations)
 router.put('/img/:id', updateUserImg)
 router.get('/details/:id', getUserDetails)
 
