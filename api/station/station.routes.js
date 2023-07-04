@@ -18,7 +18,7 @@ const router = express.Router()
 // middleware that is specific to this router
 // router.use(requireAuth)
 
-router.get('/', log, getStations);
+router.get('/', getStations);
 // router.get('/:category', log, getStations);
 router.get('/:id', getStationById)
 router.post('/', addStation)
