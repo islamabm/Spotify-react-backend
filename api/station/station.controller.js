@@ -51,7 +51,6 @@ async function updateStation(req, res) {
 async function removeStation(req, res) {
   try {
     const stationId = req.params.id
-    console.log('stationId', stationId)
     const removedId = await stationService.remove(stationId)
     res.send(removedId)
   } catch (err) {
@@ -61,12 +60,10 @@ async function removeStation(req, res) {
 }
 
 async function addStationSong(req, res) {
-  // const { loggedinUser } = req
   try {
     const stationId = req.params.id
     const song = req.body.song
     const savedSong = await stationService.addStationSong(stationId, song)
-    console.log('savedSong', savedSong)
     res.json(savedSong)
   } catch (err) {
     logger.error('Failed to update station', err)
@@ -79,8 +76,6 @@ async function removeStationSong(req, res) {
   try {
     const stationId = req.params.id
     const songId = req.params.songId
-    console.log('stationId in the controller', stationId)
-    console.log('songId in the controller', songId)
     const removedSongDetails = await stationService.removeStationSong(
       stationId,
       songId

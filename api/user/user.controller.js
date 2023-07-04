@@ -14,7 +14,6 @@ async function getUser(req, res) {
 async function getUserDetails(req, res) {
   try {
     const user = await userService.getUserDetails(req.params.id)
-
     res.send(user)
   } catch (err) {
     logger.error('Failed to get user details', err)
@@ -48,10 +47,12 @@ async function deleteUser(req, res) {
 
 async function updateUser(req, res) {
   try {
-    const user = req.body
-    console.log('user in the controlle back', user)
-    const savedUser = await userService.update(user)
+    const {stationId,user} = req.body
+    console.log(stationId)
+    console.log(user)
+    const savedUser = await userService.update(stationId,user)
     res.send(savedUser)
+    console.log(savedUser)
   } catch (err) {
     logger.error('Failed to update user', err)
     res.status(500).send({ err: 'Failed to update user' })
@@ -60,7 +61,6 @@ async function updateUser(req, res) {
 async function updateUserImg(req, res) {
   try {
     const user = req.body
-    console.log('user in the controlle back', user)
     const savedUser = await userService.updateImg(user)
     res.send(savedUser)
   } catch (err) {
@@ -68,6 +68,24 @@ async function updateUserImg(req, res) {
     res.status(500).send({ err: 'Failed to update user' })
   }
 }
+async function updateLatestStations(req, res) {
+  try {
+    const updatedUser = req.body;
+    const { latestStations } = updatedUser;
+    const updatedLatestStations = [...latestStations];
+    if (updatedLatestStations.length > 6) {
+      updatedLatestStations.splice(0, updatedLatestStations.length - 6);
+    }
+    updatedUser.latestStations = updatedLatestStations;
+
+    const savedUser = await userService.updateLatestStations(updatedUser);
+    res.send(savedUser);
+  } catch (err) {
+    logger.error('Failed to update user', err);
+    res.status(500).send({ err: 'Failed to update user' });
+  }
+}
+
 
 module.exports = {
   getUser,
@@ -76,4 +94,5 @@ module.exports = {
   updateUser,
   getUserDetails,
   updateUserImg,
+  updateLatestStations
 }
