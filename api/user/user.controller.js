@@ -71,6 +71,7 @@ async function updateUserImg(req, res) {
 async function updateLatestStations(req, res) {
   try {
     const user = req.body
+    console.log('user from controller',user)
     const savedUser = await userService.updateLatestStations(user)
     console.log('savedUser', savedUser)
     res.send(savedUser)

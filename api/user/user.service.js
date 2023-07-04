@@ -171,6 +171,7 @@ function _buildCriteria(filterBy) {
 }
 
 async function updateLatestStations(user) {
+  console.log('user from back service', user)
   try {
     const collection = await dbService.getCollection('user')
     const updatedUser = await collection.findOneAndUpdate(
@@ -178,6 +179,7 @@ async function updateLatestStations(user) {
       { $set: { latestStations: user.latestStations } },
       { returnOriginal: false }
     )
+    console.log('updated user from back service',updatedUser)
     return updatedUser
   } catch (err) {
     throw err
