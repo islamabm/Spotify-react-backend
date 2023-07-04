@@ -29,6 +29,7 @@ async function addStation(req, res) {
   try {
     const station = req.body
     // station.owner = loggedinUser
+    console.log('station', station)
     const addedStation = await stationService.add(station)
     res.json(addedStation)
   } catch (err) {
