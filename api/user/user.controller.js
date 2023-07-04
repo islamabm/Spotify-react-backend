@@ -47,10 +47,10 @@ async function deleteUser(req, res) {
 
 async function updateUser(req, res) {
   try {
-    const {stationId,user} = req.body
+    const { stationId, user } = req.body
     console.log(stationId)
     console.log(user)
-    const savedUser = await userService.update(stationId,user)
+    const savedUser = await userService.update(stationId, user)
     res.send(savedUser)
     console.log(savedUser)
   } catch (err) {
@@ -70,15 +70,15 @@ async function updateUserImg(req, res) {
 }
 async function updateLatestStations(req, res) {
   try {
-    const user = req.body;
-    const savedUser = await userService.updateLatestStations(user);
-    res.send(savedUser);
+    const user = req.body
+    const savedUser = await userService.updateLatestStations(user)
+    console.log('savedUser', savedUser)
+    res.send(savedUser)
   } catch (err) {
-    logger.error('Failed to update user', err);
-    res.status(500).send({ err: 'Failed to update user' });
+    logger.error('Failed to update user', err)
+    res.status(500).send({ err: 'Failed to update user' })
   }
 }
-
 
 module.exports = {
   getUser,
@@ -87,5 +87,5 @@ module.exports = {
   updateUser,
   getUserDetails,
   updateUserImg,
-  updateLatestStations
+  updateLatestStations,
 }

@@ -11,7 +11,6 @@ async function query(filterBy) {
     } else {
       stations = await collection.find({ tags: filterBy }).toArray()
     }
-    console.log('stations in service back', stations)
     return stations
   } catch (err) {
     logger.error('cannot find stations', err)

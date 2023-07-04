@@ -10,7 +10,7 @@ const {
   updateUser,
   getUserDetails,
   updateUserImg,
-  updateLatestStations
+  updateLatestStations,
 } = require('./user.controller')
 const router = express.Router()
 
