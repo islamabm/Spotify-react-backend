@@ -5,10 +5,8 @@ const logger = require('../../services/logger.service')
 async function getStations(req, res) {
   try {
     logger.debug('Getting Stations')
-    console.log('req.params', req.params);
-    const { categoryBy } = req.params;
-    console.log('categoryBy', categoryBy)
-    const stations = await stationService.query(categoryBy)
+    const { category } = req.params;
+    const stations = await stationService.query(category)
     res.json(stations)
   } catch (err) {
     logger.error('Failed to get stations', err)
