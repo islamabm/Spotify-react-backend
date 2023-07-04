@@ -65,7 +65,6 @@ async function removeStation(req, res) {
 }
 
 async function addStationSong(req, res) {
-  // const { loggedinUser } = req
   try {
     const stationId = req.params.id
     const song = req.body.song
