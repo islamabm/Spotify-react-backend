@@ -120,6 +120,7 @@ async function updateImg(user) {
       _id: new ObjectId(user._id),
       username: user.username,
       imgUrl: user.imgUrl,
+      LikedSongs: user.LikedSongs,
     }
 
     const collection = await dbService.getCollection('user')
@@ -175,7 +176,12 @@ async function updateLatestStations(user) {
     const collection = await dbService.getCollection('user')
     const updatedUser = await collection.findOneAndUpdate(
       { _id: new ObjectId(user._id) },
-      { $set: { latestStations: user.latestStations, LikedSongs: user.LikedSongs } },
+      {
+        $set: {
+          latestStations: user.latestStations,
+          LikedSongs: user.LikedSongs,
+        },
+      },
       { returnOriginal: false }
     )
     console.log('updated user from back service', updatedUser)
