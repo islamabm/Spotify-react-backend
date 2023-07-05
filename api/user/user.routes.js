@@ -21,7 +21,7 @@ const router = express.Router()
 
 router.get('/', getUsers)
 router.get('/:id', getUser)
-router.put('/:id/removeSong', removeSongFromUser)
+router.put('/removeSong/:id', removeSongFromUser)
 router.put('/:id', updateUser)
 router.put('/latest/:id', updateLatestStations)
 router.put('/img/:id', updateUserImg)
