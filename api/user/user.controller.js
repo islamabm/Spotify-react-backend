@@ -61,6 +61,7 @@ async function removeSongFromUser(req, res) {
   try {
     const { id } = req.params
     const { songId } = req.body
+
     const updatedUser = await userService.removeSong(songId, id)
     res.send(updatedUser)
   } catch (err) {
