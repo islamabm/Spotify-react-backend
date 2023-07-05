@@ -89,7 +89,6 @@ async function update(user) {
       username: user.username,
       LikedSongs: user.LikedSongs,
     }
-
     const collection = await dbService.getCollection('user')
     await collection.updateOne({ _id: userToSave._id }, { $set: userToSave })
     return userToSave
@@ -160,6 +159,7 @@ async function updateLatestStations(user) {
     const updatedUser = await collection.findOneAndUpdate(
       { _id: new ObjectId(user._id) },
       { $set: { latestStations: user.latestStations } },
+      { $set: { LikedSongs: user.LikedSongs } },
       { returnOriginal: false }
     )
     console.log('updated user from back service', updatedUser)
