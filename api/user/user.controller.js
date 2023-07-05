@@ -57,6 +57,18 @@ async function updateUser(req, res) {
     res.status(500).send({ err: 'Failed to update user' })
   }
 }
+async function removeSongFromUser(req, res) {
+  try {
+    const { id } = req.params
+    const { songId } = req.body
+    const updatedUser = await userService.removeSong(songId, id)
+    res.send(updatedUser)
+  } catch (err) {
+    logger.error('Failed to remove song from user', err)
+    res.status(500).send({ err: 'Failed to remove song from user' })
+  }
+}
+
 async function updateUserImg(req, res) {
   try {
     const user = req.body
@@ -84,6 +96,7 @@ module.exports = {
   getUser,
   getUsers,
   deleteUser,
+  removeSongFromUser,
   updateUser,
   getUserDetails,
   updateUserImg,

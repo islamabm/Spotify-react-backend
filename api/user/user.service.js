@@ -13,6 +13,22 @@ module.exports = {
   getUserDetails,
   updateImg,
   updateLatestStations,
+  removeSong,
+}
+async function removeSong(songId, userId) {
+  try {
+    const collection = await dbService.getCollection('user')
+    const user = await collection.findOne({ _id: ObjectId(userId) })
+    user.songs = user.songs.filter((song) => song._id !== songId)
+    const updatedUser = await collection.updateOne(
+      { _id: ObjectId(userId) },
+      { $set: user }
+    )
+    return updatedUser
+  } catch (err) {
+    logger.error(`while removing song from user: ${userId}`, err)
+    throw err
+  }
 }
 async function getUserDetails(userId) {
   const user = await dbService
