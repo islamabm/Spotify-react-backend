@@ -157,9 +157,9 @@ function _buildCriteria(filterBy) {
       {
         username: txtCriteria,
       },
-      {
-        fullname: txtCriteria,
-      },
+      // {
+      //   fullname: txtCriteria,
+      // },
     ]
   }
   if (filterBy.minBalance) {
