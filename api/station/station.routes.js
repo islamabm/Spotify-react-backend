@@ -12,17 +12,19 @@ const {
   removeStation,
   addStationSong,
   removeStationSong,
+  updateStationSongs,
 } = require('./station.controller')
 const router = express.Router()
 
 // middleware that is specific to this router
 // router.use(requireAuth)
 
-router.get('/', getStations);
+router.get('/', getStations)
 // router.get('/:category', log, getStations);
 router.get('/:id', getStationById)
 router.post('/', addStation)
 router.put('/:id', updateStation)
+router.put('/songs/:id', updateStationSongs)
 router.delete('/:id', removeStation)
 router.delete('/:id/song/:songId', removeStationSong)
 // router.post('/', requireAuth, addStation)

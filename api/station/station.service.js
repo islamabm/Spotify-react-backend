@@ -72,6 +72,21 @@ async function update(station) {
   }
 }
 
+async function updateSongs(stationId, songs) {
+  try {
+    const collection = await dbService.getCollection('playlist')
+    const station = await collection.findOneAndUpdate(
+      { _id: new ObjectId(stationId) },
+      { $set: { songs: songs } },
+      { returnOriginal: false }
+    )
+    return station.value
+  } catch (err) {
+    logger.error(`cannot update station ${stationId}`, err)
+    throw err
+  }
+}
+
 async function addStationSong(stationId, song) {
   try {
     const collection = await dbService.getCollection('playlist')
@@ -108,4 +123,5 @@ module.exports = {
   update,
   addStationSong,
   removeStationSong,
+  updateSongs,
 }

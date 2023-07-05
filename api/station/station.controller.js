@@ -88,11 +88,24 @@ async function removeStationSong(req, res) {
   }
 }
 
+async function updateStationSongs(req, res) {
+  try {
+    const stationId = req.params.id
+    const songs = req.body.songs
+    const station = await stationService.updateSongs(stationId, songs)
+    res.json(station)
+  } catch (err) {
+    logger.error('Failed to update station', err)
+    res.status(500).send({ err: 'Failed to update station' })
+  }
+}
+
 module.exports = {
   getStations,
   getStationById,
   addStation,
   updateStation,
+  updateStationSongs,
   removeStation,
   addStationSong,
   removeStationSong,
