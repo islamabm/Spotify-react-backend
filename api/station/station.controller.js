@@ -3,7 +3,6 @@ const stationService = require('./station.service.js')
 const logger = require('../../services/logger.service')
 async function getStations(req, res) {
   try {
-    logger.debug('Getting Stations')
     const { filterBy } = req.query
     const stations = await stationService.query(filterBy)
     res.json(stations)
@@ -25,11 +24,8 @@ async function getStationById(req, res) {
 }
 
 async function addStation(req, res) {
-  const { loggedinUser } = req
   try {
     const station = req.body
-    // station.owner = loggedinUser
-    console.log('station', station)
     const addedStation = await stationService.add(station)
     res.json(addedStation)
   } catch (err) {
