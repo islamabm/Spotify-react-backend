@@ -20,11 +20,12 @@ async function removeSong(songId, userId) {
     const collection = await dbService.getCollection('user')
     const user = await collection.findOne({ _id: ObjectId(userId) })
     user.LikedSongs = user.LikedSongs.filter((song) => song._id !== songId)
-    const updatedUser = await collection.updateOne(
+    const updatedUser = await collection.findOneAndUpdate(
       { _id: ObjectId(userId) },
-      { $set: user }
+      { $set: user },
+      { returnOriginal: false }
     )
-    return updatedUser
+    return updatedUser.value
   } catch (err) {
     logger.error(`while removing song from user: ${userId}`, err)
     throw err
