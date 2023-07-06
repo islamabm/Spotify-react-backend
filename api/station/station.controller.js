@@ -3,8 +3,7 @@ const stationService = require('./station.service.js')
 const logger = require('../../services/logger.service')
 async function getStations(req, res) {
   try {
-    const { filterBy } = req.query
-    const stations = await stationService.query(filterBy)
+    const stations = await stationService.query()
     res.json(stations)
   } catch (err) {
     logger.error('Failed to get stations', err)
