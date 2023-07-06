@@ -63,9 +63,9 @@ async function getById(userId) {
     const user = await collection.findOne({ _id: ObjectId(userId) })
     delete user.password
 
-    user.LikedSongs = LikedSongs
-    user.imgUrl = imgUrl
-    user.latestStations = latestStations
+    // user.LikedSongs = LikedSongs
+    // user.imgUrl = imgUrl
+    // user.latestStations = latestStations
     user.givenReviews = await reviewService.query({
       byUserId: ObjectId(user._id),
     })
