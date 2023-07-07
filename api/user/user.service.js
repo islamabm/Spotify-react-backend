@@ -13,6 +13,7 @@ module.exports = {
   getUserDetails,
   updateImg,
   // updateLatestStations,
+  updateStations,
   removeSong,
 }
 async function removeSong(songId, userId) {
@@ -108,6 +109,26 @@ async function update(user) {
       _id: new ObjectId(user._id),
       username: user.username,
       LikedSongs: user.LikedSongs,
+      imgUrl: user.imgUrl,
+      // stations: user.stations,
+    }
+    const collection = await dbService.getCollection('user')
+    await collection.updateOne({ _id: userToSave._id }, { $set: userToSave })
+    return userToSave
+  } catch (err) {
+    logger.error(`cannot update user ${user._id}`, err)
+    throw err
+  }
+}
+async function updateStations(user) {
+  try {
+    // peek only updatable properties
+    const userToSave = {
+      _id: new ObjectId(user._id),
+      username: user.username,
+      LikedSongs: user.LikedSongs,
+      imgUrl: user.imgUrl,
+      stations: user.stations,
     }
     const collection = await dbService.getCollection('user')
     await collection.updateOne({ _id: userToSave._id }, { $set: userToSave })
@@ -124,6 +145,7 @@ async function updateImg(user) {
       username: user.username,
       imgUrl: user.imgUrl,
       LikedSongs: user.LikedSongs,
+      // stations: user.stations,
     }
 
     const collection = await dbService.getCollection('user')

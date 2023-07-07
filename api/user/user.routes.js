@@ -11,7 +11,7 @@ const {
   getUserDetails,
   updateUserImg,
   removeSongFromUser,
-
+  updateUserStations,
   updateLatestStations,
 } = require('./user.controller')
 const router = express.Router()
@@ -23,6 +23,8 @@ router.get('/', getUsers)
 router.get('/:id', getUser)
 router.put('/removeSong/:id', removeSongFromUser)
 router.put('/:id', updateUser)
+router.put('/station/:id', updateUserStations)
+
 router.put('/latest/:id', updateLatestStations)
 router.put('/img/:id', updateUserImg)
 router.get('/details/:id', getUserDetails)
