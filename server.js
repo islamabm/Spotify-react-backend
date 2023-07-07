@@ -31,6 +31,7 @@ const userRoutes = require('./api/user/user.routes')
 const reviewRoutes = require('./api/review/review.routes')
 const stationRoutes = require('./api/station/station.routes')
 app.use('/api/lyrics', require('./api/lyrics/lyrics.routes'))
+const shazamRoutes = require('./api/shazam/shazam.routes')
 const { setupSocketAPI } = require('./services/socket.service')
 
 // routes
@@ -42,6 +43,7 @@ app.use('/api/user', userRoutes)
 app.use('/api/review', reviewRoutes)
 app.use('/api/station', stationRoutes)
 app.use('/api/openai', openaiRoutes)
+app.use('/api/shazam', shazamRoutes)
 setupSocketAPI(http)
 
 // Make every server-side-route to match the index.html
