@@ -110,6 +110,7 @@ async function update(user) {
       username: user.username,
       LikedSongs: user.LikedSongs,
       imgUrl: user.imgUrl,
+      stations: user.stations,
     }
     const collection = await dbService.getCollection('user')
     await collection.updateOne({ _id: userToSave._id }, { $set: userToSave })
@@ -144,7 +145,7 @@ async function updateImg(user) {
       username: user.username,
       imgUrl: user.imgUrl,
       LikedSongs: user.LikedSongs,
-      // stations: user.stations,
+      stations: user.stations,
     }
 
     const collection = await dbService.getCollection('user')
