@@ -173,20 +173,20 @@ function _buildCriteria(filterBy) {
   return criteria
 }
 
-try {
-  const collection = await dbService.getCollection('user')
-  const updatedUser = await collection.findOneAndUpdate(
-    { _id: new ObjectId(user._id) },
-    {
-      $set: {
-        latestStations: user.latestStations,
-        LikedSongs: user.LikedSongs,
-      },
-    },
-    { returnOriginal: false }
-  )
+// try {
+//   const collection = await dbService.getCollection('user')
+//   const updatedUser = await collection.findOneAndUpdate(
+//     { _id: new ObjectId(user._id) },
+//     {
+//       $set: {
+//         latestStations: user.latestStations,
+//         LikedSongs: user.LikedSongs,
+//       },
+//     },
+//     { returnOriginal: false }
+//   )
 
-  return updatedUser
-} catch (err) {
-  throw err
-}
+//   return updatedUser
+// } catch (err) {
+//   throw err
+// }
