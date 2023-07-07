@@ -12,7 +12,7 @@ module.exports = {
   add,
   getUserDetails,
   updateImg,
-  updateLatestStations,
+  // updateLatestStations,
   removeSong,
 }
 async function removeSong(songId, userId) {
@@ -173,23 +173,20 @@ function _buildCriteria(filterBy) {
   return criteria
 }
 
-async function updateLatestStations(user) {
-  console.log('user from back service', user)
-  try {
-    const collection = await dbService.getCollection('user')
-    const updatedUser = await collection.findOneAndUpdate(
-      { _id: new ObjectId(user._id) },
-      {
-        $set: {
-          latestStations: user.latestStations,
-          LikedSongs: user.LikedSongs,
-        },
+try {
+  const collection = await dbService.getCollection('user')
+  const updatedUser = await collection.findOneAndUpdate(
+    { _id: new ObjectId(user._id) },
+    {
+      $set: {
+        latestStations: user.latestStations,
+        LikedSongs: user.LikedSongs,
       },
-      { returnOriginal: false }
-    )
-    console.log('updated user from back service', updatedUser)
-    return updatedUser
-  } catch (err) {
-    throw err
-  }
+    },
+    { returnOriginal: false }
+  )
+
+  return updatedUser
+} catch (err) {
+  throw err
 }

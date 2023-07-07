@@ -48,10 +48,9 @@ async function deleteUser(req, res) {
 async function updateUser(req, res) {
   try {
     const user = req.body
-    console.log(user)
+
     const savedUser = await userService.update(user)
     res.send(savedUser)
-    console.log(savedUser)
   } catch (err) {
     logger.error('Failed to update user', err)
     res.status(500).send({ err: 'Failed to update user' })
@@ -83,9 +82,7 @@ async function updateUserImg(req, res) {
 async function updateLatestStations(req, res) {
   try {
     const user = req.body
-    console.log('user from controller', user)
-    const savedUser = await userService.updateLatestStations(user)
-    console.log('savedUser', savedUser)
+
     res.send(savedUser)
   } catch (err) {
     logger.error('Failed to update user', err)
