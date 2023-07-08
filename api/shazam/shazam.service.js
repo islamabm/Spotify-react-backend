@@ -1,18 +1,31 @@
 const axios = require('axios')
-
-async function identifySong(data) {
+require('dotenv').config()
+async function identifySong(
+  artistId,
+  language = 'en-US',
+  fromDate = '2022-12-31',
+  limit = '50',
+  offset = '0'
+) {
   const options = {
     method: 'GET',
     url: 'https://shazam.p.rapidapi.com/shazam-events/list',
-    params: data,
+    params: {
+      artistId,
+      l: language,
+      from: fromDate,
+      limit,
+      offset,
+    },
     headers: {
-      'X-RapidAPI-Key': 'd1c1bad93emsh030a132b1d78a4ap1a3edcjsn7e736b8942c1',
+      'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
       'X-RapidAPI-Host': 'shazam.p.rapidapi.com',
     },
   }
   try {
     const response = await axios.request(options)
     if (response.status === 200) {
+      console.log('response.data', response.data)
       return response.data
     } else {
       throw new Error(`Shazam API returned status ${response.status}`)
