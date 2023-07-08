@@ -27,7 +27,6 @@ async function identifySong(audioData) {
 
   // Create a Readable stream from the mp3 Buffer
   const stream = new Readable()
-  console.log('Type of mp3Data: ', typeof mp3Data)
 
   stream.push(mp3Data)
   stream.push(null)
@@ -51,7 +50,6 @@ async function identifySong(audioData) {
   }
   try {
     const response = await axios.request(options)
-    console.log(response.data)
     return response.data
   } catch (error) {
     console.error(error)
