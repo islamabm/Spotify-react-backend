@@ -106,7 +106,7 @@ async function removeStationSong(stationId, songId) {
       { _id: new ObjectId(stationId) },
       { $pull: { songs: { _id: songId } } }
     )
-    return station
+    return songId
   } catch (err) {
     logger.error(`cannot add station msg ${stationId}`, err)
     throw err
