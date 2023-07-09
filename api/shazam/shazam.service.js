@@ -52,6 +52,10 @@ async function identifySong(audioData) {
 
   try {
     const response = await axios.request(options)
+    console.log(
+      'responsesssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss',
+      response
+    )
     return response.data
   } catch (error) {
     console.error(error)
