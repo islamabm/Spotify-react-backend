@@ -11,23 +11,24 @@ async function identifySong(audioData) {
   inputStream.push(null)
 
   let mp3Data = []
+
   const converter = ffmpeg(inputStream)
     .inputFormat('webm')
     .outputFormat('mp3')
     .on('error', console.error)
-    .on('data', (chunk) => {
-      mp3Data.push(chunk)
-    })
+    .pipe()
 
   await new Promise((resolve, reject) => {
-    converter.on('end', resolve).on('error', reject).run()
+    converter
+      .on('end', () => {
+        mp3Data = Buffer.concat(mp3Data)
+        resolve()
+      })
+      .on('error', reject)
   })
-
-  mp3Data = Buffer.concat(mp3Data)
 
   // Create a Readable stream from the mp3 Buffer
   const stream = new Readable()
-
   stream.push(mp3Data)
   stream.push(null)
 
@@ -48,6 +49,7 @@ async function identifySong(audioData) {
     },
     data: formData,
   }
+
   try {
     const response = await axios.request(options)
     return response.data
