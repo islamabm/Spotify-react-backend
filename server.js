@@ -14,12 +14,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, 'public')))
 } else {
   const corsOptions = {
-    origin: [
-      'http://127.0.0.1:5173',
-      'http://localhost:5173',
-      'http://127.0.0.1:3000',
-      'http://localhost:3000',
-    ],
+    origin: ['https://musicai-2nfb.onrender.com'],
     credentials: true,
   }
   app.use(cors(corsOptions))
