@@ -87,7 +87,15 @@ async function updateSongs(stationId, songs) {
 async function addStationSong(stationId, song) {
   try {
     const collection = await dbService.getCollection('react_playlist')
-    // const songWithId = { ...song, _id: new ObjectId() }
+    const station = await collection.findOne({ _id: new ObjectId(stationId) })
+
+    const songAlreadyInStation = station.songs.some(
+      (existingSong) => existingSong._id === song._id
+    )
+    if (songAlreadyInStation) {
+      song._id = song._id + '-' + Math.random().toString(36).substring(2, 15)
+    }
+
     await collection.updateOne(
       { _id: new ObjectId(stationId) },
       { $push: { songs: song } }
