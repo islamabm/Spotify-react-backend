@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Spotify-react-frontend/static/css/main.7927e79a.css",
-    "main.js": "/Spotify-react-frontend/static/js/main.bb57a317.js",
+    "main.js": "/Spotify-react-frontend/static/js/main.60cfcb16.js",
     "static/js/787.a19c38e9.chunk.js": "/Spotify-react-frontend/static/js/787.a19c38e9.chunk.js",
     "static/media/Roboto-Regular.ttf": "/Spotify-react-frontend/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
     "static/media/CircularStd-Light.otf": "/Spotify-react-frontend/static/media/CircularStd-Light.4a1a0bfcc3a53847a945.otf",
@@ -11,11 +11,11 @@
     "static/media/GothamMedium_1.ttf": "/Spotify-react-frontend/static/media/GothamMedium_1.0a910c0b9d50be6aa3dc.ttf",
     "index.html": "/Spotify-react-frontend/index.html",
     "main.7927e79a.css.map": "/Spotify-react-frontend/static/css/main.7927e79a.css.map",
-    "main.bb57a317.js.map": "/Spotify-react-frontend/static/js/main.bb57a317.js.map",
+    "main.60cfcb16.js.map": "/Spotify-react-frontend/static/js/main.60cfcb16.js.map",
     "787.a19c38e9.chunk.js.map": "/Spotify-react-frontend/static/js/787.a19c38e9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7927e79a.css",
-    "static/js/main.bb57a317.js"
+    "static/js/main.60cfcb16.js"
   ]
 }
